@@ -162,7 +162,6 @@ const buildQuestionForm = () => {
     </form>`);
 }
 
-
 /**
  * Hides the divs that are not needed and shows the question div
  */
@@ -211,8 +210,9 @@ const lastQuestion = (questionIndex) => {
  * @returns {string} - The value of the radio button that is checked
  */
 const getRadioSelection = (event) => {
-    return $(event.currentTarget).find("input:checked").val();
+    return $(event.currentTarget).find("input:checked").val().trim();
 }
+
 
 /**
  * Gets the value of the checkbox(s) that are checked
@@ -232,14 +232,18 @@ const getCheckboxSelection = (event) => {
 const checkAnswer = (answers, questionIndex) => {
     // Check if the correct answer is an array
     if (Array.isArray(questions[questionIndex].correctAnswer)) {
-        let answers = questions[questionIndex].correctAnswer.sort();
-        let correctAnswers = answers.sort();
-        return JSON.stringify(answers) === JSON.stringify(correctAnswers);
+        // Sort user's answers and correct answers before comparison
+        let userAnswersSorted = answers.sort();
+        let correctAnswersSorted = questions[questionIndex].correctAnswer.sort();
+
+        // Compare the sorted arrays
+        return JSON.stringify(userAnswersSorted) === JSON.stringify(correctAnswersSorted);
     } else {
-        // Must be a string
+        // If not an array, it must be a single choice question
         return answers.length === 1 && answers[0] === questions[questionIndex].correctAnswer;
     }
 }
+
 
 /**
  * Builds the response based on if the answer is correct or not
