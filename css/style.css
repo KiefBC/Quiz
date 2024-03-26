@@ -3,6 +3,7 @@
     --main-text-color: #F1F0EA;
     --button-color: #E0DDCF;
     --secondary-text-color: #2D232E;
+    --radio-checkbox-color: #fb8500;
 }
 
 body {
@@ -20,14 +21,13 @@ h3 {
     opacity: .7;
 }
 
-/*img {*/
-/*    height: auto;*/
-/*    margin-right: 2em;*/
-/*    width: 50px;*/
-/*}*/
+img:hover {
+    cursor: pointer;
+    transform: scale(1.05);
+    transition: transform .3s;
+}
 
 .counters {
-    /*background: #2e3738;*/
     display: flex;
     justify-content: space-evenly;
     align-items: center;
@@ -38,7 +38,7 @@ span, p {
     font-size: 18px;
 }
 
-.quizdiv {
+#quiz {
     align-items: center;
     display: flex;
     height: 20em;
@@ -46,22 +46,24 @@ span, p {
     margin: 1.5em 0;
 }
 
-.quizform {
+.quiz-card {
     background: #474448;
     border-radius: 2px;
     border: 1px solid #e3e3e3;
     margin-top: 5em;
     padding: 1em 2em;
-    /*width: 35%;*/
 }
 
+/*
+Remove default styling
+ */
 fieldset {
     border-width: 1px;
     border-style: none;
 }
 
-input[type=radio]{
-    background: blue;
+input[type=radio], input[type=checkbox] {
+    background: var(--radio-checkbox-color);
 }
 
 label {
@@ -92,131 +94,131 @@ label {
     cursor: pointer;
 }
 
-@media (max-width: 399px) {
-    .quizform {
-        width: 100%;
-    }
-}
+/*@media (max-width: 399px) {*/
+/*    .quiz-card {*/
+/*        width: 100%;*/
+/*    }*/
+/*}*/
 
-/* Ipad portrait */
-@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) {
-    .counters {
-        margin-bottom: 10em;
-    }
-}
+/*!* Ipad portrait *!*/
+/*@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) {*/
+/*    .counters {*/
+/*        margin-bottom: 10em;*/
+/*    }*/
+/*}*/
 
-/* iPad landscape */
-@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : landscape) {
-    .counters {
-        margin-bottom: 3em;
-    }
-}
+/*!* iPad landscape *!*/
+/*@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : landscape) {*/
+/*    .counters {*/
+/*        margin-bottom: 3em;*/
+/*    }*/
+/*}*/
 
-/* iPhone 6, 7, & 8 Plus in portrait */
-@media only screen and (min-device-width: 414px) and (max-device-height: 736px) and (orientation : portrait) {
-    header {
-        height: 50px;
-    }
+/*!* iPhone 6, 7, & 8 Plus in portrait *!*/
+/*@media only screen and (min-device-width: 414px) and (max-device-height: 736px) and (orientation : portrait) {*/
+/*    header {*/
+/*        height: 50px;*/
+/*    }*/
 
-    h1 {
-        font-size: 18px;
-    }
+/*    h1 {*/
+/*        font-size: 18px;*/
+/*    }*/
 
-    h3 {
-        opacity: .7;
-    }
+/*    h3 {*/
+/*        opacity: .7;*/
+/*    }*/
 
-    img {
-        margin-top: .3em;
-        height: 25px;
-        width: auto;
-    }
-    .counters {
-        margin-bottom: 3em;
-    }
+/*    img {*/
+/*        margin-top: .3em;*/
+/*        height: 25px;*/
+/*        width: auto;*/
+/*    }*/
+/*    .counters {*/
+/*        margin-bottom: 3em;*/
+/*    }*/
 
-    .quizform {
-        width: 65%;
-    }
-}
+/*    .quiz-card {*/
+/*        width: 65%;*/
+/*    }*/
+/*}*/
 
-/* iPhone 6, 7, & 8 Plus in landscape */
-@media only screen and (min-device-width : 414px) and (max-device-width : 736px) and (orientation : landscape) {
-    header {
-        height: 30px;
-    }
+/*!* iPhone 6, 7, & 8 Plus in landscape *!*/
+/*@media only screen and (min-device-width : 414px) and (max-device-width : 736px) and (orientation : landscape) {*/
+/*    header {*/
+/*        height: 30px;*/
+/*    }*/
 
-    img {
-        height: 25px;
-        width: auto;
-        margin-top: .3em;
-    }
+/*    img {*/
+/*        height: 25px;*/
+/*        width: auto;*/
+/*        margin-top: .3em;*/
+/*    }*/
 
-    h1 {
-        font-size: 18px;
-    }
+/*    h1 {*/
+/*        font-size: 18px;*/
+/*    }*/
 
-    .quizdiv {
-        margin: 0;
-    }
+/*    .quiz {*/
+/*        margin: 0;*/
+/*    }*/
 
-    .quizform {
-        margin-top: 2em;
-        width: 75%;
-    }
+/*    .quiz-card {*/
+/*        margin-top: 2em;*/
+/*        width: 75%;*/
+/*    }*/
 
-    p {
-        margin: .1em 0;
-    }
+/*    p {*/
+/*        margin: .1em 0;*/
+/*    }*/
 
-    h2 {
-        font-size: 18px;
-    }
+/*    h2 {*/
+/*        font-size: 18px;*/
+/*    }*/
 
-    label {
-        font-size: 16px;
-    }
-}
+/*    label {*/
+/*        font-size: 16px;*/
+/*    }*/
+/*}*/
 
-/* iPhone 5 & 5s in portrait*/
-@media only screen and (min-device-width : 320px) and (max-device-width : 568px) and (orientation : portrait) {
-    .counters {
-        margin-bottom: 3em;
-    }
-}
+/*!* iPhone 5 & 5s in portrait*!*/
+/*@media only screen and (min-device-width : 320px) and (max-device-width : 568px) and (orientation : portrait) {*/
+/*    .counters {*/
+/*        margin-bottom: 3em;*/
+/*    }*/
+/*}*/
 
-/* iPhone 2G, 3G, 4, 4S */
-@media only screen and (min-device-width : 320px) and (max-device-width : 413px) and (orientation : portrait) {
-    header {
-        height: 50px;
-    }
+/*!* iPhone 2G, 3G, 4, 4S *!*/
+/*@media only screen and (min-device-width : 320px) and (max-device-width : 413px) and (orientation : portrait) {*/
+/*    header {*/
+/*        height: 50px;*/
+/*    }*/
 
-    .counters {
-        margin-bottom: 1em;
-    }
+/*    .counters {*/
+/*        margin-bottom: 1em;*/
+/*    }*/
 
-    .quizform{
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        margin-top: 0;
-        width: 100%;
-    }
+/*    .quiz-card{*/
+/*        display: flex;*/
+/*        flex-direction: column;*/
+/*        align-items: center;*/
+/*        margin-top: 0;*/
+/*        width: 100%;*/
+/*    }*/
 
-    img {
-        height: 35px;
-        width: auto;
-    }
+/*    img {*/
+/*        height: 35px;*/
+/*        width: auto;*/
+/*    }*/
 
-    h1 {
-        font-size: 1.5em;
-    }
+/*    h1 {*/
+/*        font-size: 1.5em;*/
+/*    }*/
 
-    h2 {
-        font-size: 20px;
-    }
+/*    h2 {*/
+/*        font-size: 20px;*/
+/*    }*/
 
-    label {
-        font-size: 16px;
-    }
-}
+/*    label {*/
+/*        font-size: 16px;*/
+/*    }*/
+/*}*/

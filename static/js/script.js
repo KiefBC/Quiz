@@ -1,52 +1,52 @@
 const questions = [
     {
-        question: 'What is the closest star to our own sun?',
+        question: 'Who was the original Lich King before merging with Arthas?',
         answers: [
-            'Proxima Centauri',
-            'Our sun',
-            'Betelgeuse',
-            'Sirius '],
-        correctAnswer: 'Proxima Centauri'
+            'Sylvanas Windrunner',
+            'Ner\'zhul',
+            'Illidan Stormrage',
+            'Gul\'dan '],
+        correctAnswer: 'Ner\'zhul'
     },
     {
-        question: 'Which U.S. President made the first telephone call to the moon?',
+        question: 'Which Dragon Aspect was given the charge to guard time and watch over the pathways of fate?',
         answers: [
-            'Henry Truman',
-            'Richard Nixon',
-            'Franklin D. Roosevelt',
-            'Jimmy Carter'
+            'Alexstrasza',
+            'Malygos',
+            'Ysera',
+            'Nozdormu'
         ],
-        correctAnswer: 'Richard Nixon'
+        correctAnswer: 'Nozdormu'
     },
     {
-        question: 'Betelgeuse and Rigel are the two giant stars in which constellation?',
+        question: 'Which World Tree was planted to heal the damage caused by the first invasion of the Burning Legion?',
         answers: [
-            'Andromeda',
-            'Aries',
-            'Virgo',
-            'Orion'
+            'Vordrassil',
+            'Teldrassil',
+            'Nordrassil',
+            'Shaladrassil'
         ],
-        correctAnswer: 'Orion'
+        correctAnswer: 'Nordrassil'
     },
     {
-        question: 'In our solar system, which planet has the shortest day?',
+        question: 'Who is the Elemental Lord of Fire?',
         answers: [
-            'Earth',
-            'Venus',
-            'Jupiter',
-            'Mercury'
+            'Neptulon',
+            'Therazane',
+            'Al\'Akir',
+            'Ragnaros'
         ],
-        correctAnswer: 'Jupiter'
+        correctAnswer: 'Ragnaros'
     },
     {
-        question: 'Hale-Bopp is classified as which type of small Solar System body?',
+        question: 'Which two characters played pivotal roles in the events leading to the Sundering of Azeroth?',
         answers: [
-            'Comet',
-            'Asteroid',
-            'Meteoroid',
-            'Meteor'
+            'Tyrande Whisperwind',
+            'Illidan Stormrage',
+            'Malfurion Stormrage',
+            'Queen Azshara'
         ],
-        correctAnswer: ['Comet', 'Asteroid']
+        correctAnswer: ['Illidan Stormrage', 'Queen Azshara']
     }
 ]
 
