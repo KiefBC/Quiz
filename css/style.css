@@ -4,6 +4,7 @@
     --button-color: #E0DDCF;
     --secondary-text-color: #2D232E;
     --radio-checkbox-color: #fb8500;
+    --secondary-checkbox-color: #fff3b0;
 }
 
 body {
@@ -19,6 +20,18 @@ h1, h2, h3 {
 
 h3 {
     opacity: .7;
+}
+
+.time-taken-complete {
+    font-size: larger;
+    color: var(--radio-checkbox-color);
+    font-weight: bolder;
+}
+
+#user-score, #score-value {
+    font-size: larger;
+    color: var(--secondary-checkbox-color);
+    font-weight: bolder;
 }
 
 img:hover {
@@ -62,8 +75,12 @@ fieldset {
     border-style: none;
 }
 
-input[type=radio], input[type=checkbox] {
-    background: var(--radio-checkbox-color);
+/*
+change color selection of radio boxes aND checkboxes
+ */
+input[type="radio"]:checked + label::before, input[type="checkbox"]:checked + label::before {
+    background-color: var(--radio-checkbox-color);
+    border-color: var(--radio-checkbox-color);
 }
 
 label {
@@ -93,132 +110,3 @@ label {
     color: var(--button-color);
     cursor: pointer;
 }
-
-/*@media (max-width: 399px) {*/
-/*    .quiz-card {*/
-/*        width: 100%;*/
-/*    }*/
-/*}*/
-
-/*!* Ipad portrait *!*/
-/*@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) {*/
-/*    .counters {*/
-/*        margin-bottom: 10em;*/
-/*    }*/
-/*}*/
-
-/*!* iPad landscape *!*/
-/*@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : landscape) {*/
-/*    .counters {*/
-/*        margin-bottom: 3em;*/
-/*    }*/
-/*}*/
-
-/*!* iPhone 6, 7, & 8 Plus in portrait *!*/
-/*@media only screen and (min-device-width: 414px) and (max-device-height: 736px) and (orientation : portrait) {*/
-/*    header {*/
-/*        height: 50px;*/
-/*    }*/
-
-/*    h1 {*/
-/*        font-size: 18px;*/
-/*    }*/
-
-/*    h3 {*/
-/*        opacity: .7;*/
-/*    }*/
-
-/*    img {*/
-/*        margin-top: .3em;*/
-/*        height: 25px;*/
-/*        width: auto;*/
-/*    }*/
-/*    .counters {*/
-/*        margin-bottom: 3em;*/
-/*    }*/
-
-/*    .quiz-card {*/
-/*        width: 65%;*/
-/*    }*/
-/*}*/
-
-/*!* iPhone 6, 7, & 8 Plus in landscape *!*/
-/*@media only screen and (min-device-width : 414px) and (max-device-width : 736px) and (orientation : landscape) {*/
-/*    header {*/
-/*        height: 30px;*/
-/*    }*/
-
-/*    img {*/
-/*        height: 25px;*/
-/*        width: auto;*/
-/*        margin-top: .3em;*/
-/*    }*/
-
-/*    h1 {*/
-/*        font-size: 18px;*/
-/*    }*/
-
-/*    .quiz {*/
-/*        margin: 0;*/
-/*    }*/
-
-/*    .quiz-card {*/
-/*        margin-top: 2em;*/
-/*        width: 75%;*/
-/*    }*/
-
-/*    p {*/
-/*        margin: .1em 0;*/
-/*    }*/
-
-/*    h2 {*/
-/*        font-size: 18px;*/
-/*    }*/
-
-/*    label {*/
-/*        font-size: 16px;*/
-/*    }*/
-/*}*/
-
-/*!* iPhone 5 & 5s in portrait*!*/
-/*@media only screen and (min-device-width : 320px) and (max-device-width : 568px) and (orientation : portrait) {*/
-/*    .counters {*/
-/*        margin-bottom: 3em;*/
-/*    }*/
-/*}*/
-
-/*!* iPhone 2G, 3G, 4, 4S *!*/
-/*@media only screen and (min-device-width : 320px) and (max-device-width : 413px) and (orientation : portrait) {*/
-/*    header {*/
-/*        height: 50px;*/
-/*    }*/
-
-/*    .counters {*/
-/*        margin-bottom: 1em;*/
-/*    }*/
-
-/*    .quiz-card{*/
-/*        display: flex;*/
-/*        flex-direction: column;*/
-/*        align-items: center;*/
-/*        margin-top: 0;*/
-/*        width: 100%;*/
-/*    }*/
-
-/*    img {*/
-/*        height: 35px;*/
-/*        width: auto;*/
-/*    }*/
-
-/*    h1 {*/
-/*        font-size: 1.5em;*/
-/*    }*/
-
-/*    h2 {*/
-/*        font-size: 20px;*/
-/*    }*/
-
-/*    label {*/
-/*        font-size: 16px;*/
-/*    }*/
-/*}*/

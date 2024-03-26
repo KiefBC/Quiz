@@ -183,6 +183,10 @@ const questionSubmitListener = () => {
         const values = lastQuestion(questionIndex) ? getCheckboxSelection(event) : [getRadioSelection(event)];
         const answerIsCorrect = checkAnswer(values, questionIndex);
 
+        if (lastQuestion(questionIndex)) {
+            clearInterval(currentTimer);
+        }
+
         if (answerIsCorrect) {
             score += 10;
         }
@@ -316,12 +320,18 @@ const showResults = () => {
  * Builds the quiz results
  */
 const buildQuizResults = () => {
+    const remainingTime = parseInt($(".countDownTimer").text(), 10);
+    const timeTaken = 60 - remainingTime;
     $(".quiz-results").html(`
           <h2>You did it!</h2>
-          <h3>Your final score is ${score}.</h3>
-          <h3>That is ${score/10} out of 5.</h3>
+          <h3>Your final score is <span id="score-value">${score}.</span></h3>
+          <h3>That is <span id="user-score">${score/10} out of 5</span>.</h3>
+          <!-- let user know how long it took them to complete the quiz -->
+          <h3>It took you <span class="time-taken-complete">${timeTaken}</span> seconds to complete the quiz.</h3>
+          <h3>Out of a total of <span class="time-taken-complete">60</span> seconds.</h3>
+          <h3>Time left: <span class="time-taken-complete">${60 - timeTaken}</span> seconds.</h3>
           <div class="controls">
-            <button class='button quiz-replay'>Play again</button>
+            <button class='button quiz-replay'>Play again?</button>
           </div>
     `).on("click", ".quiz-replay", () => {
         buildIntroduction();
@@ -336,7 +346,7 @@ const startTimer = () => {
         clearInterval(currentTimer); // clear the old timer
     }
 
-    let time = 5;
+    let time = 60;
     currentTimer = setInterval(() => {
         time--;
         $(".countDownTimer").text(time);
