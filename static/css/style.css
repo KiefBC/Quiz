@@ -34,11 +34,11 @@ h3 {
     font-weight: bolder;
 }
 
-img:hover {
-    cursor: pointer;
-    transform: scale(1.05);
-    transition: transform .3s;
-}
+/*img:hover {*/
+/*    cursor: pointer;*/
+/*    transform: scale(1.05);*/
+/*    transition: transform .3s;*/
+/*}*/
 
 .counters {
     display: flex;
@@ -109,4 +109,5 @@ label {
     background: var(--secondary-text-color);
     color: var(--button-color);
     cursor: pointer;
+
 }

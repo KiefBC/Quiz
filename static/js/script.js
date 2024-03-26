@@ -3,9 +3,9 @@ const questions = [
         question: 'Who was the original Lich King before merging with Arthas?',
         answers: [
             'Sylvanas Windrunner',
-            'Ner\'zhul',
+            'Ner&#39;zhul',
             'Illidan Stormrage',
-            'Gul\'dan '],
+            'Gul&#39;dan '],
         correctAnswer: 'Ner\'zhul'
     },
     {
@@ -56,6 +56,7 @@ let questionNumber = 0;
 let score = 0;
 let currentTimer = null;
 let addToScore;
+let confetti;
 //</editor-fold>
 
 /**
@@ -83,6 +84,16 @@ const buildIntroduction = () => {
             $("#user-name").val('');
         });
     });
+}
+
+const flashRed = () => {
+    const originalColor = $('body').css('background-color');
+
+    // Change background color to red and then back to the original color
+    $('body').css('background-color', 'red');
+    setTimeout(function() {
+        $('body').css('background-color', originalColor);
+    }, 500); // Flash duration in milliseconds
 }
 
 /**
@@ -182,12 +193,16 @@ const questionSubmitListener = () => {
         const values = lastQuestion(questionIndex) ? getCheckboxSelection(event) : [getRadioSelection(event)];
         const answerIsCorrect = checkAnswer(values, questionIndex);
 
+        console.log(values);
+
         if (lastQuestion(questionIndex)) {
             clearInterval(currentTimer);
         }
 
         if (answerIsCorrect) {
             score += 10;
+        } else {
+            flashRed();
         }
 
         const feedbackText = buildResponse(answerIsCorrect);
@@ -367,6 +382,24 @@ const startApp = () => {
     buildIntroduction();
     buildQuestion();
     questionSubmitListener();
+
+    $(".button").hover(function() {
+        $(this).addClass('animate__animated animate__pulse animate__infinite');
+    });
+
+    // remove the pulse animation when the mouse leaves the button
+    $(".button").mouseleave(function() {
+        $(this).removeClass('animate__animated animate__pulse animate__infinite');
+    });
+
+    $('#intro-image').hover(function() {
+        $(this).addClass('animate__animated animate__pulse animate__infinite');
+    });
+
+    // remove the pulse animation when the mouse leaves the button
+    $('#intro-image').mouseleave(function() {
+        $(this).removeClass('animate__animated animate__pulse animate__infinite');
+    });
 }
 
 $(startApp);
