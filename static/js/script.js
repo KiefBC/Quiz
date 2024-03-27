@@ -63,7 +63,7 @@ let currentTimer = null;
 const buildIntroduction = () => {
     showHide();
 
-    questionIndex = 1;
+    questionIndex = 0;
     questionNumber = 0;
     score = 0;
     $(".question-number").text(0);
@@ -119,15 +119,6 @@ const buildQuestion = () => {
 }
 
 /**
- * Increases the counter for the question number
- */
-const updateQuestionCounter = () => {
-    // questionNumber++;
-    // questionIndex++;
-    $(".question-number").text(questionIndex);
-}
-
-/**
  * Renders the question form
  */
 const buildQuestionForm = () => {
@@ -160,7 +151,7 @@ const buildQuestionForm = () => {
     $(".question").html(`
     <form id='form'>
         <div class='counters'>
-            <p>Question: <span class="question-number">${questionIndex}</span> / 5</p>
+            <p>Question: <span class="question-number">${questionIndex + 1}</span> / 5</p>
             <p>Timer: <span class="countDownTimer"></span></p>
             <p>Score: <span class="currentScore">${score}</span></p>
         </div>
