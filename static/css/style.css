@@ -34,12 +34,6 @@ h3 {
     font-weight: bolder;
 }
 
-/*img:hover {*/
-/*    cursor: pointer;*/
-/*    transform: scale(1.05);*/
-/*    transition: transform .3s;*/
-/*}*/
-
 .counters {
     display: flex;
     justify-content: space-evenly;
@@ -65,22 +59,6 @@ span, p {
     border: 1px solid #e3e3e3;
     margin-top: 5em;
     padding: 1em 2em;
-}
-
-/*
-Remove default styling
- */
-fieldset {
-    border-width: 1px;
-    border-style: none;
-}
-
-/*
-change color selection of radio boxes aND checkboxes
- */
-input[type="radio"]:checked + label::before, input[type="checkbox"]:checked + label::before {
-    background-color: var(--radio-checkbox-color);
-    border-color: var(--radio-checkbox-color);
 }
 
 label {

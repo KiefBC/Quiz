@@ -19,7 +19,7 @@
                         <div>
                             <label for="user-name" hidden>Enter your name:</label>
                             <input type="text" id="user-name" placeholder="Enter your name" required
-                                   pattern="[a-zA-Z]{2,}+">
+                                   pattern="^[a-zA-Z]+(\s[a-zA-Z]+)?$">
                         </div>
                         <div>
                             <button type="submit" class="button">Submit Name</button>
@@ -48,6 +48,7 @@
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 <!-- This is not my code, I am using it for the confetti effect -->
 <script src="static/js/confetti.js"></script>
 <!-- This is my code -->

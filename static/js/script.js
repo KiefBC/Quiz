@@ -72,7 +72,6 @@ const buildIntroduction = () => {
     $("#user-name-form").on("submit", event => {
         event.preventDefault();
         const userName = $("#user-name").val();
-        console.log(userName);
 
         $(this).fadeOut("slow", () => {
             $(".start-quiz-btn").fadeIn("slow");
@@ -84,21 +83,25 @@ const buildIntroduction = () => {
     });
 }
 
+/**
+ * Flashes the background red if the user selects the wrong answer
+ */
 const flashRed = () => {
+    $(".question").fadeOut("slow");
     const originalColor = $('body').css('background-color');
 
-    // Change background color to red and then back to the original color
-    $('body').css('background-color', 'red');
-    setTimeout(function() {
-        $('body').css('background-color', originalColor);
-    }, 500);
+    // Animate the change to red
+    $('body').animate({backgroundColor: 'red'}, 1000, () => {
+        // After the animation to red is complete, fade back to the original color
+        $('body').animate({backgroundColor: originalColor}, 1000);
+    });
 }
 
 /**
  * Shows and hides divs after a buildIntroduction()
  */
 const showHide = () => {
-    $(".intro").show();
+    $(".intro").fadeIn("slow");
     $("#intro-image").show();
     $("#user-name-form").show();
     $(".start-quiz-btn").hide();
@@ -132,21 +135,20 @@ const buildQuestionForm = () => {
         if (isLastQuestion) {
             // Use checkboxes for the last question
             answersHtml += `
-            <div class='css-answers'>
+            <div class='answers'>
                 <input id='answer${index + 1}' type="checkbox" name='answer' value='${answer}'>
                 <label for='answer${index + 1}'>${answer}</label>
             </div>`;
         } else {
             // Use radio buttons for all other questions
             answersHtml += `
-            <div class='css-answers'>
+            <div class='answers'>
                 <input id='answer${index + 1}' type="radio" name='answer' value='${answer}' required>
                 <label for='answer${index + 1}'>${answer}</label>
             </div>`;
         }
     });
 
-    // Render the question form
     $(".question").html(`
     <form id='form'>
         <div class='counters'>
@@ -157,33 +159,40 @@ const buildQuestionForm = () => {
             <legend><h2>${questions[questionIndex].question}</h2></legend>
             ${answersHtml}
         <div class="controls">
-        <button class='button question-submit'>Submit</button>
-        <button class='button question-hint'>Hint</button>
+            <button class='button question-submit'>Submit</button>
+            <button class='button question-hint'>Hint</button>
         </div>
     </form>`);
 
-    $(".question-hint").on("click", () => {
-        // prevent default
+    $(".question-hint").on("click", (event) => {
         event.preventDefault();
         correctSelection(questionIndex);
     });
 }
 
+/**
+ * Displays the correct answer
+ * @param questionIndex - The index of the question in the questions array
+ */
 const correctSelection = (questionIndex) => {
     const correctAnswer = questions[questionIndex].correctAnswer;
     let correctAnswerHtml = '';
 
+    // Check if the correct answer is an array
     if (Array.isArray(correctAnswer)) {
         correctAnswer.forEach((answer, index) => {
             correctAnswerHtml += `<p>${index + 1}. ${answer}</p>`;
         });
     } else {
+        // If not an array, it must be a single choice question
         correctAnswerHtml = `<p>${correctAnswer}</p>`;
     }
 
+    $(".hint").remove();
+
     $(".question").append(`
         <div class="hint">
-            <h3 class="mt-2">Hint</h3>
+            <h3 class="mt-4">Hint</h3>
             <p>The correct answer is:</p>
             ${correctAnswerHtml}
         </div>
@@ -194,11 +203,15 @@ const correctSelection = (questionIndex) => {
  * Hides the divs that are not needed and shows the question div
  */
 const startQuiz = () => {
-    $(".intro").hide();
-    $(".question-feedback").hide();
-    $(".question").show();
-    $("#intro-image").hide();
-    $("#introduction-name").hide();
+    $(".intro").fadeOut("slow");
+    // wait for the intro to fade out before showing the question
+    setTimeout(() => {
+
+        $(".question-feedback").hide();
+        $("#intro-image").hide();
+        $("#introduction-name").hide();
+        $(".question").fadeIn("slow");
+    }, 1000);
 }
 
 /**
@@ -209,6 +222,9 @@ const questionSubmitListener = () => {
         event.preventDefault();
         const values = lastQuestion(questionIndex) ? getCheckboxSelection(event) : [getRadioSelection(event)];
         const answerIsCorrect = checkAnswer(values, questionIndex);
+
+        // Not sure why this won't properly fade out the question once they submit
+        $(".question").fadeOut("slow");
 
         if (lastQuestion(questionIndex)) {
             clearInterval(currentTimer);
@@ -221,7 +237,6 @@ const questionSubmitListener = () => {
             $("#confetti-canvas").show();
             $("body").css("overflow", "hidden");
 
-            // hide the #quiz for 2 seconds
             $("#quiz").hide();
             setTimeout(() => {
                 stopConfetti();
@@ -229,6 +244,7 @@ const questionSubmitListener = () => {
                 $("#quiz").fadeIn("slow");
             }, 2000);
         } else {
+            $(".question-feedback").fadeOut("slow");
             flashRed();
         }
 
@@ -254,7 +270,6 @@ const lastQuestion = (questionIndex) => {
 const getRadioSelection = (event) => {
     return $(event.currentTarget).find("input:checked").val();
 }
-
 
 /**
  * Gets the value of the checkbox(s) that are checked
@@ -286,7 +301,6 @@ const checkAnswer = (answers, questionIndex) => {
     }
 }
 
-
 /**
  * Builds the response based on if the answer is correct or not
  * @param correctAnswer - True if the answer is correct, false otherwise
@@ -316,6 +330,7 @@ const buildResponse = (correctAnswer) => {
             showResults();
             buildQuizResults();
         } else {
+            $(".question-feedback").fadeOut("slow");
             buildQuestionForm();
         }
     });
@@ -338,8 +353,10 @@ const questionResults = (results) => {
  * Shows the quiz results and hides the question feedback
  */
 const showResults = () => {
-    $(".question-feedback").hide();
-    $(".quiz-results").show();
+    $(".question-feedback").fadeOut("slow", () => {
+        // This function is called after the fadeOut completes
+        $(".quiz-results").fadeIn("slow");
+    });
 }
 
 /**
@@ -360,7 +377,9 @@ const buildQuizResults = () => {
             <button class='button quiz-replay'>Play again?</button>
           </div>
     `).on("click", ".quiz-replay", () => {
-        buildIntroduction();
+        $(".quiz-results").fadeOut("slow", () => {
+            buildIntroduction();
+        });
     });
 }
 
@@ -385,10 +404,12 @@ const startTimer = () => {
     }, 1000);
 };
 
+/**
+ * Builds the quiz results when the timer runs out
+ */
 const buildTimerRunOut = () => {
-    const remainingTime = parseInt($(".countDownTimer").text(), 10);
     $(".quiz-results").html(`
-          <h2>You couldd not survive!</h2>
+          <h2>You could not survive!</h2>
           <h3 class="text-decoration-underline">Next time go a little faster?</h3>
           <h3>Your final score is <span id="score-value">${score}.</span></h3>
           <h3>That is <span id="user-score">${score/10} out of 5</span>.</h3>
@@ -400,28 +421,42 @@ const buildTimerRunOut = () => {
     });
 }
 
+/**
+ * Starts the website
+ */
 const startApp = () => {
     buildIntroduction();
     buildQuestion();
     questionSubmitListener();
 
-    $(".button").hover(function() {
-        $(this).addClass('animate__animated animate__pulse animate__infinite');
+    /*
+    There must be a better way of doing this. I will look into it later.
+     */
+    //<editor-fold desc="Animations">
+    $(document).on('mouseenter', '.question-feedback-submit', (event) => {
+        $(event.currentTarget).addClass('animate__animated animate__pulse animate__infinite');
     });
 
-    // remove the pulse animation when the mouse leaves the button
-    $(".button").mouseleave(function() {
-        $(this).removeClass('animate__animated animate__pulse animate__infinite');
+    $(document).on('mouseleave', '.question-feedback-submit', (event) => {
+        $(event.currentTarget).removeClass('animate__animated animate__pulse animate__infinite');
     });
 
-    $('#intro-image').hover(function() {
-        $(this).addClass('animate__animated animate__pulse animate__infinite');
+    $(document).on('mouseenter', '.button', (event) => {
+        $(event.currentTarget).addClass('animate__animated animate__pulse animate__infinite');
     });
 
-    // remove the pulse animation when the mouse leaves the button
-    $('#intro-image').mouseleave(function() {
-        $(this).removeClass('animate__animated animate__pulse animate__infinite');
+    $(document).on('mouseleave', '.button', (event) => {
+        $(event.currentTarget).removeClass('animate__animated animate__pulse animate__infinite');
     });
+
+    $(document).on('mouseenter', '#intro-image', (event) => {
+        $(event.currentTarget).addClass('animate__animated animate__pulse animate__infinite');
+    });
+
+    $(document).on('mouseleave', '#intro-image', (event) => {
+        $(event.currentTarget).removeClass('animate__animated animate__pulse animate__infinite');
+    });
+    //</editor-fold>
 }
 
 $(startApp);
