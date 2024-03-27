@@ -188,15 +188,28 @@ const correctSelection = (questionIndex) => {
         correctAnswerHtml = `<p>${correctAnswer}</p>`;
     }
 
-    $(".hint").remove();
+    // Check if a hint already exists and is visible
+    if ($(".hint").length > 0 && $(".hint").is(':visible')) {
+        // If visible, fade it out
+        $(".hint").hide("fade", { easing: "easeInOutQuad" }, 1000, () => {
+            // Remove the hint after fading out
+            $(this).remove();
+        });
+    } else {
+        // Remove existing hint if any (this is for when the hint is not visible but exists)
+        $(".hint").remove();
 
-    $(".question").append(`
-        <div class="hint">
-            <h3 class="mt-4">Hint</h3>
-            <p>The correct answer is:</p>
-            ${correctAnswerHtml}
-        </div>
-    `);
+        $(".question").append(`
+            <div class="hint" style="display: none;">
+                <h3 class="mt-4">Hint</h3>
+                <p>The correct answer is:</p>
+                ${correctAnswerHtml}
+            </div>
+        `);
+
+        // Fade in the hint
+        $(".hint").show("fade", { easing: "easeInOutQuad" }, 1000);
+    }
 }
 
 /**
