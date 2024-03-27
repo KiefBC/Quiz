@@ -36,12 +36,12 @@
                         <div>
                             <label for="user-name" hidden>Enter your name:</label>
                             <p>Please enter your name and begin the quiz!</p>
-                            <input type="text" id="user-name" placeholder="Enter your name" required
-                                   pattern="^[a-zA-Z]+(\s[a-zA-Z]+)?$">
+                            <input type="text" id="user-name" placeholder="Enter your name">
                         </div>
                         <div>
                             <button type="submit" class="button">Submit Name</button>
                         </div>
+                        <div class="error-message" style="color: red; display: none;"></div>
                     </form>
                     <!-- Initially hide the start quiz button and Welcome Message -->
                     <div id="introduction-name" style="display: none;">

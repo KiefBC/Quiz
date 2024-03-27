@@ -72,6 +72,16 @@ const buildIntroduction = () => {
     $("#user-name-form").on("submit", event => {
         event.preventDefault();
         const userName = $("#user-name").val();
+        const pattern = `^[a-zA-Z]+(\s[a-zA-Z]+)?$`;
+        const regex = new RegExp(pattern);
+
+        if (!regex.test(userName)) {
+            console.log("Invalid name");
+            $(".error-message").text("Please enter a valid name.").fadeIn("slow");
+            return false;
+        } else {
+            $(".error-message").fadeOut("slow");
+        }
 
         $(this).fadeOut("slow", () => {
             $(".start-quiz-btn").fadeIn("slow");
