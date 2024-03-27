@@ -110,3 +110,7 @@ label {
     color: var(--button-color);
     cursor: pointer;
 }
+
+.question-hint {
+    margin-left: 0.5em;
+}

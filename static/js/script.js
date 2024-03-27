@@ -122,7 +122,6 @@ const buildQuestion = () => {
  * Renders the question form
  */
 const buildQuestionForm = () => {
-    // updateQuestionCounter();
     questionNumber += 1;
     startQuiz();
     let answersHtml = '';
@@ -159,8 +158,36 @@ const buildQuestionForm = () => {
             ${answersHtml}
         <div class="controls">
         <button class='button question-submit'>Submit</button>
+        <button class='button question-hint'>Hint</button>
         </div>
     </form>`);
+
+    $(".question-hint").on("click", () => {
+        // prevent default
+        event.preventDefault();
+        correctSelection(questionIndex);
+    });
+}
+
+const correctSelection = (questionIndex) => {
+    const correctAnswer = questions[questionIndex].correctAnswer;
+    let correctAnswerHtml = '';
+
+    if (Array.isArray(correctAnswer)) {
+        correctAnswer.forEach((answer, index) => {
+            correctAnswerHtml += `<p>${index + 1}. ${answer}</p>`;
+        });
+    } else {
+        correctAnswerHtml = `<p>${correctAnswer}</p>`;
+    }
+
+    $(".question").append(`
+        <div class="hint">
+            <h3 class="mt-2">Hint</h3>
+            <p>The correct answer is:</p>
+            ${correctAnswerHtml}
+        </div>
+    `);
 }
 
 /**
@@ -345,7 +372,7 @@ const startTimer = () => {
         clearInterval(currentTimer); // clear the old timer
     }
 
-    let time = 2;
+    let time = 60;
     currentTimer = setInterval(() => {
         time--;
         $(".countDownTimer").text(time);
