@@ -63,7 +63,7 @@ let currentTimer = null;
 const buildIntroduction = () => {
     showHide();
 
-    questionIndex = 0;
+    questionIndex = 1;
     questionNumber = 0;
     score = 0;
     $(".question-number").text(0);
