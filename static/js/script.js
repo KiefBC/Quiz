@@ -55,7 +55,6 @@ let questionIndex = 0;
 let questionNumber = 0;
 let score = 0;
 let currentTimer = null;
-let addToScore;
 //</editor-fold>
 
 /**
@@ -123,15 +122,17 @@ const buildQuestion = () => {
  * Increases the counter for the question number
  */
 const updateQuestionCounter = () => {
-    questionNumber++;
-    $(".question-number").text(questionNumber);
+    // questionNumber++;
+    // questionIndex++;
+    $(".question-number").text(questionIndex);
 }
 
 /**
  * Renders the question form
  */
 const buildQuestionForm = () => {
-    updateQuestionCounter();
+    // updateQuestionCounter();
+    questionNumber += 1;
     startQuiz();
     let answersHtml = '';
     const isLastQuestion = lastQuestion(questionIndex);
@@ -159,7 +160,7 @@ const buildQuestionForm = () => {
     $(".question").html(`
     <form id='form'>
         <div class='counters'>
-            <p>Question: <span class="question-number">${questionNumber}</span> / 5</p>
+            <p>Question: <span class="question-number">${questionIndex}</span> / 5</p>
             <p>Timer: <span class="countDownTimer"></span></p>
             <p>Score: <span class="currentScore">${score}</span></p>
         </div>
@@ -190,8 +191,6 @@ const questionSubmitListener = () => {
         event.preventDefault();
         const values = lastQuestion(questionIndex) ? getCheckboxSelection(event) : [getRadioSelection(event)];
         const answerIsCorrect = checkAnswer(values, questionIndex);
-
-        console.log(values);
 
         if (lastQuestion(questionIndex)) {
             clearInterval(currentTimer);
@@ -237,7 +236,7 @@ const lastQuestion = (questionIndex) => {
  * @returns {string} - The value of the radio button that is checked
  */
 const getRadioSelection = (event) => {
-    return $(event.currentTarget).find("input:checked").val().trim();
+    return $(event.currentTarget).find("input:checked").val();
 }
 
 
@@ -288,16 +287,12 @@ const buildResponse = (correctAnswer) => {
                 <button class='button question-feedback-submit'>Next</button>
                 </div>
         `;
-
-        increasePoints();
     } else {
         responseMsg = `<h2>Ouch, this is not right</h2>
                 <p>The correct answer is: '${questions[questionIndex].correctAnswer}'</p>
                 <div class="controls">
                 <button class='button question-feedback-submit'>Next</button>
                 </div>`;
-
-        decreasePoints();
     }
 
     $(".question-feedback").on("click", ".question-feedback-submit", () => {
@@ -310,22 +305,6 @@ const buildResponse = (correctAnswer) => {
     });
 
     return responseMsg;
-}
-
-/**
- * Increases the score by 10
- */
-const increasePoints = () => {
-    addToScore += 10;
-    $(".currentScore").text(addToScore);
-}
-
-/**
- * Decreases the score by 10
- */
-const decreasePoints = () => {
-    addToScore -= 10;
-    $(".currentScore").text(addToScore);
 }
 
 /**
