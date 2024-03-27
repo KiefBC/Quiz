@@ -75,11 +75,13 @@ const buildIntroduction = () => {
         const pattern = `^[a-zA-Z]+(\s[a-zA-Z]+)?$`;
         const regex = new RegExp(pattern);
 
+        // Check if the username is valid
         if (!regex.test(userName)) {
             console.log("Invalid name");
             $(".error-message").text("Please enter a valid name.").fadeIn("slow");
             return false;
         } else {
+            // Hide the error message if the username is valid
             $(".error-message").fadeOut("slow");
         }
 
