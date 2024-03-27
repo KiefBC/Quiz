@@ -56,7 +56,6 @@ let questionNumber = 0;
 let score = 0;
 let currentTimer = null;
 let addToScore;
-let confetti;
 //</editor-fold>
 
 /**
@@ -93,7 +92,7 @@ const flashRed = () => {
     $('body').css('background-color', 'red');
     setTimeout(function() {
         $('body').css('background-color', originalColor);
-    }, 500); // Flash duration in milliseconds
+    }, 500);
 }
 
 /**
@@ -163,10 +162,8 @@ const buildQuestionForm = () => {
             <p>Timer: <span class="countDownTimer"></span></p>
             <p>Score: <span class="currentScore">${score}</span></p>
         </div>
-        <fieldset>
             <legend><h2>${questions[questionIndex].question}</h2></legend>
             ${answersHtml}
-        </fieldset>
         <div class="controls">
         <button class='button question-submit'>Submit</button>
         </div>
@@ -201,6 +198,20 @@ const questionSubmitListener = () => {
 
         if (answerIsCorrect) {
             score += 10;
+
+            startConfetti();
+            $("#confetti-canvas").show();
+
+            // hide overflow-y
+            $("body").css("overflow", "hidden");
+
+            // hide the #quiz for 2 seconds
+            $("#quiz").hide();
+            setTimeout(() => {
+                stopConfetti();
+                $("#confetti-canvas").hide();
+                $("#quiz").fadeIn("slow");
+            }, 2000);
         } else {
             flashRed();
         }
