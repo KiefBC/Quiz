@@ -223,8 +223,10 @@ const questionSubmitListener = () => {
         const values = lastQuestion(questionIndex) ? getCheckboxSelection(event) : [getRadioSelection(event)];
         const answerIsCorrect = checkAnswer(values, questionIndex);
 
-        // Not sure why this won't properly fade out the question once they submit
-        $(".question").fadeOut("slow");
+        /*
+         Not sure why this won't properly fade out the question once they submit
+         */
+        $(".question").fadeOut("slow"); // WORK GOD DAMN IT
 
         if (lastQuestion(questionIndex)) {
             clearInterval(currentTimer);
