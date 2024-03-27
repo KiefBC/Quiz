@@ -129,6 +129,7 @@ const buildQuestionForm = () => {
     startQuiz();
     let answersHtml = '';
     const isLastQuestion = lastQuestion(questionIndex);
+    const errorMessageHtml = `<div class="error-message" style="color: red; display: none;"></div>`;
 
     // Loop through the answers and create the HTML
     questions[questionIndex].answers.forEach((answer, index) => {
@@ -162,6 +163,7 @@ const buildQuestionForm = () => {
             <button class='button question-submit'>Submit</button>
             <button class='button question-hint'>Hint</button>
         </div>
+        ${isLastQuestion ? errorMessageHtml : ''}
     </form>`);
 
     $(".question-hint").on("click", (event) => {
@@ -235,11 +237,16 @@ const questionSubmitListener = () => {
         event.preventDefault();
         const values = lastQuestion(questionIndex) ? getCheckboxSelection(event) : [getRadioSelection(event)];
         const answerIsCorrect = checkAnswer(values, questionIndex);
+        const isLastQuestion = lastQuestion(questionIndex);
 
-        /*
-         Not sure why this won't properly fade out the question once they submit
-         */
-        $(".question").fadeOut("slow"); // WORK GOD DAMN IT
+        let checked = 0;
+        if (isLastQuestion) {
+            checked = $("input[type=checkbox]:checked").length;
+            if (!checked) {
+                $(".error-message").text("You must check at least one checkbox.").fadeIn("slow");
+                return; // Exit the function early if validation fails
+            }
+        }
 
         if (lastQuestion(questionIndex)) {
             clearInterval(currentTimer);
@@ -396,6 +403,10 @@ const buildQuizResults = () => {
             buildIntroduction();
         });
     });
+
+    if (score === 50) { // Adjust this condition based on your scoring logic
+        $('#perfectScoreModal').modal('show');
+    }
 }
 
 /**
@@ -470,6 +481,12 @@ const startApp = () => {
 
     $(document).on('mouseleave', '#intro-image', (event) => {
         $(event.currentTarget).removeClass('animate__animated animate__pulse animate__infinite');
+    });
+
+    $('#perfectScoreModal').on('shown.bs.modal', () => {
+        setTimeout(function() {
+            $('#perfectScoreModal').modal('hide');
+        }, 2000); // Hide the modal after 5 seconds
     });
     //</editor-fold>
 }

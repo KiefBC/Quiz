@@ -92,3 +92,7 @@ label {
 .question-hint {
     margin-left: 0.5em;
 }
+
+#perfectScoreModal .modal-content {
+    background-color: var(--main-bg-color); /* Specify your desired color */
+}
