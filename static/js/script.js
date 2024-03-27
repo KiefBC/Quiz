@@ -64,9 +64,9 @@ let addToScore;
 const buildIntroduction = () => {
     showHide();
 
-    questionIndex = 0;
-    questionNumber = 0;
-    score = 0;
+    // questionIndex = 0;
+    // questionNumber = 0;
+    // score = 0;
     $(".question-number").text(0);
     $(".currentScore").text(0);
 
@@ -123,7 +123,8 @@ const buildQuestion = () => {
  * Increases the counter for the question number
  */
 const updateQuestionCounter = () => {
-    $(".question-number").text(questionNumber++);
+    questionNumber++;
+    $(".question-number").text(questionNumber);
 }
 
 /**
