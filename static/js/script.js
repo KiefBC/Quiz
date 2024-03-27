@@ -192,8 +192,6 @@ const questionSubmitListener = () => {
 
             startConfetti();
             $("#confetti-canvas").show();
-
-            // hide overflow-y
             $("body").css("overflow", "hidden");
 
             // hide the #quiz for 2 seconds
@@ -347,7 +345,7 @@ const startTimer = () => {
         clearInterval(currentTimer); // clear the old timer
     }
 
-    let time = 60;
+    let time = 2;
     currentTimer = setInterval(() => {
         time--;
         $(".countDownTimer").text(time);
@@ -355,10 +353,25 @@ const startTimer = () => {
             clearInterval(currentTimer);
             $(".question").hide();
             showResults();
-            buildQuizResults();
+            buildTimerRunOut();
         }
     }, 1000);
 };
+
+const buildTimerRunOut = () => {
+    const remainingTime = parseInt($(".countDownTimer").text(), 10);
+    $(".quiz-results").html(`
+          <h2>You couldd not survive!</h2>
+          <h3 class="text-decoration-underline">Next time go a little faster?</h3>
+          <h3>Your final score is <span id="score-value">${score}.</span></h3>
+          <h3>That is <span id="user-score">${score/10} out of 5</span>.</h3>
+          <div class="controls">
+            <button class='button quiz-replay'>Play again?</button>
+          </div>
+    `).on("click", ".quiz-replay", () => {
+        buildIntroduction();
+    });
+}
 
 const startApp = () => {
     buildIntroduction();
