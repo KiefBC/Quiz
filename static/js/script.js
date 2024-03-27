@@ -97,6 +97,18 @@ const flashRed = () => {
     });
 }
 
+const flashGreen = () => {
+    $(".question").fadeOut("slow");
+    const originalColor = $('body').css('background-color');
+
+    // Animate the change to green
+    $('body').animate({backgroundColor: 'green'}, 1000, () => {
+        // After the animation to green is complete, fade back to the original color
+        $('body').animate({backgroundColor: originalColor}, 1000);
+    });
+
+}
+
 /**
  * Shows and hides divs after a buildIntroduction()
  */
@@ -239,15 +251,17 @@ const questionSubmitListener = () => {
         const answerIsCorrect = checkAnswer(values, questionIndex);
         const isLastQuestion = lastQuestion(questionIndex);
 
+        // Check if the user has checked at least one checkbox
         let checked = 0;
         if (isLastQuestion) {
             checked = $("input[type=checkbox]:checked").length;
             if (!checked) {
                 $(".error-message").text("You must check at least one checkbox.").fadeIn("slow");
-                return; // Exit the function early if validation fails
+                return;
             }
         }
 
+        // Stop the timer if the last question is reached
         if (lastQuestion(questionIndex)) {
             clearInterval(currentTimer);
         }
@@ -387,6 +401,7 @@ const showResults = () => {
 const buildQuizResults = () => {
     const remainingTime = parseInt($(".countDownTimer").text(), 10);
     const timeTaken = 60 - remainingTime;
+
     $(".quiz-results").html(`
           <h2>You did it!</h2>
           <h3>Your final score is <span id="score-value">${score}.</span></h3>
@@ -404,8 +419,10 @@ const buildQuizResults = () => {
         });
     });
 
-    if (score === 50) { // Adjust this condition based on your scoring logic
+    // Check if the user got a perfect score
+    if (score === 50) {
         $('#perfectScoreModal').modal('show');
+        flashGreen();
     }
 }
 
